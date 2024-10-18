@@ -1,1 +1,54 @@
-Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+1. First Call to sum2DArray(array2D)
+When sum2DArray is called with array2D, the following steps occur:
+A message is logged to the console: "Sum called ..."
+
+The promise hasn't been resolved yet, so the next message is logged immediately: "returning from sum"
+
+Inside the promise, a setTimeout with 0 ms delay is set to execute the summing logic asynchronously, meaning the function execution continues without waiting for the sum to be calculated and each number in the 2D array is added to a cumulative sum. For each addition, the following messages are logged:
+
+Adding 1 to sum
+Adding 2 to sum
+Adding 3 to sum
+Adding 4 to sum
+Adding 5 to sum
+Adding 6 to sum
+Adding 7 to sum
+Adding 8 to sum
+Adding 9 to sum
+
+After summing all the numbers, the promise is resolved with the total sum 45, and this is logged when the .then() handler is triggered: "sumPromise1: 45"
+
+2. Second Call to sum2DArray([])
+The second call is made with an empty array ([]). In this case:
+The console first logs: "Sum called ..."
+Just like before, the message: "returning from sum" is logged immediately after.
+
+However, since the array is empty, the promise is rejected synchronously with the error message "Cannot sum an empty array". The .catch() block handles this rejection, logging: "Failed to get sum:  Cannot sum an empty array"
+
+
+3. Order of Execution and Asynchronous Behavior
+Both the first and second calls to sum2DArray log "Sum called ..." and "returning from sum" synchronously because these messages are logged before any asynchronous code (inside the setTimeout) is executed.
+The promise in the second call is rejected synchronously, so the error is caught and logged before the summing for the first promise completes.
+Once the summing logic inside the setTimeout finishes, the numbers are added, and the final sum 45 is logged.
+
+
+4. Final Console Output
+The actual order of console messages is:
+
+"Sum called ..." for the first promise.
+"returning from sum" for the first promise.
+"Sum called ..." for the second promise.
+"returning from sum" for the second promise.
+"Failed to get sum: Cannot sum an empty array" for the second promise, since the array is empty.
+The summing for the first promise starts:
+"Adding 1 to sum"
+"Adding 2 to sum"
+"Adding 3 to sum"
+"Adding 4 to sum"
+"Adding 5 to sum"
+"Adding 6 to sum"
+"Adding 7 to sum"
+"Adding 8 to sum"
+"Adding 9 to sum"
+Finally, the result of the first promise is logged:
+"sumPromise1: 45"
