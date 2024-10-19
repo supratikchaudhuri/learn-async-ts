@@ -13,38 +13,30 @@ const array2D_3 = [
   [-9],
 ];
 
-function findNegativeInRow(arr: number[][]): Promise<string> {
-  return new Promise((resolve, reject) => {
-    if (arr.length === 0) {
-      reject("Cannot sum an empty array");
-    }
+function findNegativeInRow(arr: number[][]): void {
+  const promises = arr.map((row, rowIdx) => {
+    return new Promise<string>((resolve, reject) => {
+      if (row.length === 0) {
+        reject("Empty row: " + rowIdx);
+      }
 
-    const promises = arr.map((row, rowIdx) => {
-      return new Promise<string>((resolve) => {
-        for (let i = 0; i < row.length; i++) {
-          if (row[i] < 0) {
-            resolve("Found negative number in row: " + rowIdx);
-          }
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] < 0) {
+          resolve("Found negative number in row: " + rowIdx);
         }
+      }
 
-        resolve("No negative number found in row: " + rowIdx);
-      });
+      reject("No negative number found in row: " + rowIdx);
     });
-
-    Promise.any(promises)
-      .then((verdict) => {
-        resolve(verdict);
-      })
-      .catch((error) => {
-        reject("Failed to compute the sum: " + error);
-      });
   });
+
+  Promise.any(promises)
+    .then((verdict) => {
+      console.log(verdict);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-findNegativeInRow(array2D_3)
-  .then((verdict) => {
-    console.log(verdict);
-  })
-  .catch((error) => {
-    console.error(`Error: ${error}`);
-  });
+findNegativeInRow(array2D_3);
