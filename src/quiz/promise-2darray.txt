@@ -23,7 +23,7 @@ The second call is made with an empty array ([]). In this case:
 The console first logs: "Sum called ..."
 Just like before, the message: "returning from sum" is logged immediately after.
 
-However, since the array is empty, the promise is rejected synchronously with the error message "Cannot sum an empty array". The .catch() block handles this rejection, logging: "Failed to get sum:  Cannot sum an empty array"
+However, since the array is empty, the promise is rejected with the error message "Cannot sum an empty array". The .catch() block handles this rejection, logging: "Failed to get sum:  Cannot sum an empty array"
 
 
 3. Order of Execution and Asynchronous Behavior
