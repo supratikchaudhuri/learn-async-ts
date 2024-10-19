@@ -4,6 +4,7 @@ function sum2DArray(arr: number[][]): Promise<number> {
     if (arr.length === 0) {
       reject("Cannot sum an empty array");
     }
+
     setTimeout(() => {
       let sum = 0;
       for (let i = 0; i < arr.length; i++) {
@@ -14,6 +15,7 @@ function sum2DArray(arr: number[][]): Promise<number> {
       }
       resolve(sum);
     }, 0);
+
     console.log("returning from sum");
   });
 }
